@@ -17,9 +17,8 @@ import java.util.stream.Collectors;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
-@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api/vocabulary")
+@RequestMapping("/vocabulary")
 public class VocabularyBuilderController {
 
     /**
@@ -40,15 +39,9 @@ public class VocabularyBuilderController {
     }
 
     @GetMapping("/user")
-    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public String userAccess() {
         return "User Content.";
-    }
-
-    @GetMapping("/mod")
-    @PreAuthorize("hasRole('MODERATOR')")
-    public String moderatorAccess() {
-        return "Moderator Board.";
     }
 
     @GetMapping("/admin")
@@ -57,7 +50,8 @@ public class VocabularyBuilderController {
         return "Admin Board.";
     }
 
-    @GetMapping(value="/all/{userId}", produces = APPLICATION_JSON_VALUE)
+    @GetMapping(value="/{userId}", produces = APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     ResponseEntity<List<VocabularyBuilderDto>> searchWordsById(@PathVariable Long userId)
     {
         List<VocabularyBuilderEntity>  entityList = vocabularyBuilderService.searchWordsById(userId);
@@ -66,7 +60,7 @@ public class VocabularyBuilderController {
     }
 
     @PostMapping(consumes= {MediaType.APPLICATION_JSON_VALUE}, produces = MediaType.APPLICATION_JSON_VALUE)
-    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     ResponseEntity<String> addWord(HttpServletRequest request, @RequestBody VocabularyBuilderDto vocabularyBuilderDto)
     {
 

@@ -11,4 +11,5 @@ public class VocabularyBuilderDto {
     private String word;
     private String meaning;
     private Long userId;
+    private String userName;
 }

@@ -22,13 +22,6 @@ public class VocabularyBuilderServiceImpl implements VocabularyBuilderService{
     @Autowired
     private VocabularyBuilderRepository vocabularyBuilderRepository;
 
-    @Autowired
-    private void configureGlobal(AuthenticationManagerBuilder auth)
-            throws Exception {
-
-        auth.userDetailsService(userDetailsService);
-    }
-
     @Override
     public List<VocabularyBuilderEntity> searchWordsById(Long userId) {
         return vocabularyBuilderRepository.findAllByUserId(userId);
@@ -38,10 +31,9 @@ public class VocabularyBuilderServiceImpl implements VocabularyBuilderService{
     public VocabularyBuilderEntity addWord(VocabularyBuilderEntity vocabularyBuilderEntity) {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        UserDetailsImpl client = (UserDetailsImpl) auth.getPrincipal();
-        Long id =  client.getId();
+        UserDetailsImpl userDetails = (UserDetailsImpl) auth.getPrincipal();
 
-        vocabularyBuilderEntity.setUserId(id);
+        vocabularyBuilderEntity.setUserId(userDetails.getId());
         return vocabularyBuilderRepository.save(vocabularyBuilderEntity);
     }
 
