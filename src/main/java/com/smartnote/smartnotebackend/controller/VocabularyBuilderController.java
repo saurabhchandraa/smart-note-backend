@@ -19,6 +19,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
 @RequestMapping("/vocabulary")
+@CrossOrigin("http://localhost:3000/")
 public class VocabularyBuilderController {
 
     /**

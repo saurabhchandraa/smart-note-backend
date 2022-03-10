@@ -28,28 +28,40 @@ public class User {
     private String email;
 
     @NotBlank
+    @Size(max = 50)
+    @Email
+    private String firstName;
+
+    @NotBlank
+    @Size(max = 50)
+    @Email
+    private String lastName;
+
+    @NotBlank
     @Size(max = 120)
     private String password;
 
-//    @ManyToMany(fetch = FetchType.LAZY)
+    //    @ManyToMany(fetch = FetchType.LAZY)
 //    @JoinTable(name = "user_roles",
 //            joinColumns = @JoinColumn(name = "user_id"),
 //            inverseJoinColumns = @JoinColumn(name = "role_id"))
-@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-@JoinTable(
-        name = "users_roles",
-        joinColumns = @JoinColumn(
-                name = "user_id", referencedColumnName = "id"),
-        inverseJoinColumns = @JoinColumn(
-                name = "role_id", referencedColumnName = "id"))
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "users_roles",
+            joinColumns = @JoinColumn(
+                    name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(
+                    name = "role_id", referencedColumnName = "id"))
     private Collection<Role> roles;
 
     public User() {
     }
 
-    public User(String username, String email, String password) {
+    public User(String username, String email, String firstName, String lastName, String password) {
         this.username = username;
         this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.password = password;
     }
 
@@ -91,5 +103,21 @@ public class User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 }
