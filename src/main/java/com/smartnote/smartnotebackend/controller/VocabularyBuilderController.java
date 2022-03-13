@@ -17,6 +17,9 @@ import java.util.stream.Collectors;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
+/**
+ * The type Vocabulary builder controller.
+ */
 @RestController
 @RequestMapping("/vocabulary")
 @CrossOrigin("http://localhost:3000/")
@@ -34,23 +37,44 @@ public class VocabularyBuilderController {
     @Autowired
     private VocabularyMapper mapper;
 
+    /**
+     * All access string.
+     *
+     * @return the string
+     */
     @GetMapping("/all")
     public String allAccess() {
         return "Public Content.";
     }
 
+    /**
+     * User access string.
+     *
+     * @return the string
+     */
     @GetMapping("/user")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public String userAccess() {
         return "User Content.";
     }
 
+    /**
+     * Admin access string.
+     *
+     * @return the string
+     */
     @GetMapping("/admin")
     @PreAuthorize("hasRole('ADMIN')")
     public String adminAccess() {
         return "Admin Board.";
     }
 
+    /**
+     * Search words by id response entity.
+     *
+     * @param userId the user id
+     * @return the response entity
+     */
     @GetMapping(value="/{userId}", produces = APPLICATION_JSON_VALUE)
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     ResponseEntity<List<VocabularyBuilderDto>> searchWordsById(@PathVariable Long userId)
@@ -60,6 +84,13 @@ public class VocabularyBuilderController {
         return ResponseEntity.status(HttpStatus.OK).body(dtoList);
     }
 
+    /**
+     * Add word response entity.
+     *
+     * @param request              the request
+     * @param vocabularyBuilderDto the vocabulary builder dto
+     * @return the response entity
+     */
     @PostMapping(consumes= {MediaType.APPLICATION_JSON_VALUE}, produces = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     ResponseEntity<String> addWord(HttpServletRequest request, @RequestBody VocabularyBuilderDto vocabularyBuilderDto)
@@ -76,9 +107,14 @@ public class VocabularyBuilderController {
         return ResponseEntity.status(HttpStatus.CREATED).header(location).body(responseBody);
     }
 
+    /**
+     * Delete word.
+     *
+     * @param id the id
+     */
     @DeleteMapping(value="/{id}", produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    void deleteTask(@PathVariable int id)
+    void deleteWord(@PathVariable int id)
     {
         vocabularyBuilderService.deleteWord(id);
     }

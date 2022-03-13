@@ -4,15 +4,13 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * The type Vocabulary builder dto.
+ * The type Notepad dto.
  */
 @Getter
 @Setter
-public class VocabularyBuilderDto {
+public class NotepadDto {
 
     private Integer id;
-    private String word;
-    private String meaning;
+    private String note;
     private Long userId;
-    private String userName;
 }
