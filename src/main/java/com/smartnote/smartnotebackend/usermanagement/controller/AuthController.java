@@ -34,8 +34,8 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/auth")
-@CrossOrigin("http://localhost:3000/")
+@RequestMapping("/api/auth")
+@CrossOrigin(origins = {"http://localhost:3000/", "https://smart-note-react.netlify.app/"})
 public class AuthController {
 
     @Autowired

@@ -61,6 +61,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) {
-        web.ignoring().antMatchers("/auth/**", "/vocabulary/**", "/notepad/**", "/webjars/**");
+        web.ignoring().antMatchers("/api/auth/**", "/api/vocabulary/**", "/api/notepad/**", "/webjars/**");
     }
 }

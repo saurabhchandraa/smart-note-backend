@@ -19,8 +19,8 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
  * The type Notepad controller.
  */
 @RestController
-@RequestMapping("/notepad")
-@CrossOrigin("http://localhost:3000/")
+@RequestMapping("/api/notepad")
+@CrossOrigin(origins = {"http://localhost:3000/", "https://smart-note-react.netlify.app/"})
 public class NotepadController {
 
     @Autowired

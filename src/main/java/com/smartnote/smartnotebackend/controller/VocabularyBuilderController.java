@@ -21,8 +21,8 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
  * The type Vocabulary builder controller.
  */
 @RestController
-@RequestMapping("/vocabulary")
-@CrossOrigin("http://localhost:3000/")
+@RequestMapping("/api/vocabulary")
+@CrossOrigin(origins = {"http://localhost:3000/", "https://smart-note-react.netlify.app/"})
 public class VocabularyBuilderController {
 
     /**
